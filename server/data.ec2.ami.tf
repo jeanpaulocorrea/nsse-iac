@@ -1,0 +1,23 @@
+data "aws_ami" "this" {
+  executable_users = ["self"]
+  most_recent      = true
+  owners           = ["136693071363"]
+
+  filter {
+    name   = "name"
+    values = ["debian-*"]
+  }
+    filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
