@@ -19,13 +19,13 @@ variable "assume_role" {
 
 variable "vpc" {
   type = object({
-    name                     = string
-    cidr_block               = string
+    name                      = string
+    cidr_block                = string
     aws_internet_gateway_name = string
-    aws_nat_gateway_name     = string
-    public_route_table_name  = string
-    private_route_table_name = string
-    eip_name                 = string
+    aws_nat_gateway_name      = string
+    public_route_table_name   = string
+    private_route_table_name  = string
+    eip_name                  = string
     public_subnets = list(object({
       name                    = string
       cidr_block              = string
@@ -43,13 +43,13 @@ variable "vpc" {
   })
 
   default = {
-    name                     = "nsse-production-vpc"
-    cidr_block               = "10.0.0.0/24"
-    aws_internet_gateway_name    = "internet-gateway"
-    aws_nat_gateway_name     = "nat-gateway"
-    public_route_table_name  = "public-route-table"
-    private_route_table_name = "private-route-table"
-    eip_name                 = "nat-gateway-eip"
+    name                      = "nsse-production-vpc"
+    cidr_block                = "10.0.0.0/24"
+    aws_internet_gateway_name = "internet-gateway"
+    aws_nat_gateway_name      = "nat-gateway"
+    public_route_table_name   = "public-route-table"
+    private_route_table_name  = "private-route-table"
+    eip_name                  = "nat-gateway-eip"
     public_subnets = [{
       name                    = "public-subnet-us-east-1a"
       availability_zone       = "us-east-1a"
