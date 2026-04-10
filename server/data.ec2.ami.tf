@@ -7,7 +7,7 @@ data "aws_ami" "this" {
     name   = "name"
     values = ["debian-*"]
   }
-    filter {
+  filter {
     name   = "architecture"
     values = ["x86_64"]
   }
