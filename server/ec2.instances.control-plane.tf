@@ -1,4 +1,4 @@
-data "aws_subnets" "private_subnets" {}
+#data "aws_subnets" "private_subnets" {}
 
 module "ec2_control_plane_instances" {
   source                = "./modules/ec2"
