@@ -11,6 +11,9 @@ variable "instance_profile_name" {
 
 }
 
+variable "key_name" {
+  type = string
+}
 
 variable "launch_template" {
 
@@ -35,7 +38,7 @@ variable "launch_template" {
 
 }
 
-variable "auto_scaling_group" {
+variable "autoscaling_group" {
   type = object({
     name                      = string
     max_size                  = number

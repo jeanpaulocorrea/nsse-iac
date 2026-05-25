@@ -2,37 +2,41 @@
 
 module "ec2_workers_instances" {
   source                = "./modules/ec2"
-  instance_profile_name = var.iam_instance_profile.instance_profile.name
-
+  instance_profile_name = aws_iam_instance_profile.instance_profile.name
+  key_name              = aws_key_pair.deployer.key_name
   launch_template = {
-    name                                 = var.worker_plane_launch_template.name
+    instance_profile_name                = aws_iam_instance_profile.instance_profile.name
+    name                                 = var.worker_launch_template.name
+    key_name                             = aws_key_pair.deployer.key_name
     disable_api_stop                     = var.worker_launch_template.disable_api_stop
-    disable_api_termination              = var.worker_plane_launch_template.disable_api_termination
-    instance_type                        = var.worker_plane_launch_template.instance_type
-    instance_initiated_shutdown_behavior = var.worker_plane_launch_template.instance_initiated_shutdown_behavior
-    key_name                             = var.aws_key_pair.this.name
+    disable_api_termination              = var.worker_launch_template.disable_api_termination
+    instance_type                        = var.worker_launch_template.instance_type
+    instance_initiated_shutdown_behavior = var.worker_launch_template.instance_initiated_shutdown_behavior
     vpc_security_group_ids               = [aws_security_group.worker.id]
+    vpc_zone_identifier                  = data.aws_subnets.private_subnets.ids
     image_id                             = data.aws_ami.this.image_id
-    user_data                            = filebase64(var.worker_plane_launch_template.user_data)
+    user_data                            = filebase64(var.worker_launch_template.user_data)
     ebs = {
-      size                  = var.worker_plane_launch_template.ebs.size
-      delete_on_termination = var.worker_plane_launch_template.ebs.delete_on_termination
+      size                  = var.worker_launch_template.ebs.size
+      delete_on_termination = var.worker_launch_template.ebs.delete_on_termination
     }
   }
 
-  auto_scaling_group = {
-    name                      = var.control_plane_auto_scaling_group.name
-    max_size                  = worker_auto_scaling_group.max_size
-    min_size                  = worker_auto_scaling_group.min_size
-    desired_capacity          = worker_auto_scaling_group.desired_capacity
-    health_check_grace_period = worker_auto_scaling_group.health_check_grace_period
-    health_check_type         = worker_auto_scaling_group.health_check_grace_period
+  autoscaling_group = {
+    name                      = var.worker_auto_scaling_group.name
+    max_size                  = var.worker_auto_scaling_group.max_size
+    min_size                  = var.worker_auto_scaling_group.min_size
+    desired_capacity          = var.worker_auto_scaling_group.desired_capacity
+    health_check_grace_period = var.worker_auto_scaling_group.health_check_grace_period
+    health_check_type         = var.worker_auto_scaling_group.health_check_type
     vpc_zone_identifier       = data.aws_subnets.private_subnets.ids
     instance_maintenance_policy = {
-      min_healthy_percentage = worker_auto_scaling_group.instance_maintenance_policy.min_healthy_percentage
-      max_healthy_percentage = worker_auto_scaling_group.instance_maintenance_policy.max_healthy_percentage
+      min_healthy_percentage = var.worker_auto_scaling_group.instance_maintenance_policy.min_healthy_percentage
+      max_healthy_percentage = var.worker_auto_scaling_group.instance_maintenance_policy.max_healthy_percentage
     }
   }
 
   tags = var.tags
 }
+
+

@@ -13,8 +13,8 @@ resource "aws_autoscaling_group" "this" {
   }
 
   instance_maintenance_policy {
-    min_healthy_percentage = var.control_plane_autoscaling_group.instance_maintenance_policy.min_healthy_percentage
-    max_healthy_percentage = var.control_plane_autoscaling_group.instance_maintenance_policy.max_healthy_percentage
+    min_healthy_percentage = var.autoscaling_group.instance_maintenance_policy.min_healthy_percentage
+    max_healthy_percentage = var.autoscaling_group.instance_maintenance_policy.max_healthy_percentage
   }
 
   tag {
@@ -22,10 +22,8 @@ resource "aws_autoscaling_group" "this" {
     value               = var.tags.Project
     propagate_at_launch = true
   }
-
-  tag {
-    key                 = "Environment"
-    value               = var.tags.Environment
-    propagate_at_launch = false
-  }
 }
+
+
+
+

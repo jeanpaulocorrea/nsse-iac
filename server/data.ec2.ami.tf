@@ -1,7 +1,7 @@
 data "aws_ami" "this" {
-  executable_users = ["self"]
-  most_recent      = true
-  owners           = ["136693071363"]
+
+  most_recent = true
+  owners      = ["136693071363"]
 
   filter {
     name   = "name"
