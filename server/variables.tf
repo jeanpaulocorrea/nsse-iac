@@ -46,7 +46,6 @@ variable "ec2_resources" {
     instance_profile             = string
     control_plane_security_group = string
     worker_security_group        = string
-
   })
 
   default = {

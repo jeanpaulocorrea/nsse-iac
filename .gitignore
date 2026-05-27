@@ -4,6 +4,7 @@
 # Arquivos de estado (CRÍTICO: contêm dados sensíveis e segredos em texto claro)
 *.tfstate
 *.tfstate.*
+nsse-production-key-pair.pem
 
 # Arquivos de variáveis (frequentemente contêm senhas e chaves)
 *.tfvars
