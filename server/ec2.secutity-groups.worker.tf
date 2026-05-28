@@ -3,12 +3,12 @@ resource "aws_security_group" "worker" {
   description = "Managing ports for worker nodes"
   vpc_id      = data.aws_vpc.this.id
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["192.141.97.50/32"]
-  }
+  #  ingress {
+  #     from_port   = 22
+  #     to_port     = 22
+  #     protocol    = "tcp"
+  #     cidr_blocks = ["192.141.97.50/32"]
+  #   }
 
   egress {
     from_port   = 0

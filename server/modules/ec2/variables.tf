@@ -11,9 +11,6 @@ variable "instance_profile_name" {
 
 }
 
-variable "key_name" {
-  type = string
-}
 
 variable "launch_template" {
 

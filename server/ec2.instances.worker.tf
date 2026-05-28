@@ -3,11 +3,10 @@
 module "ec2_workers_instances" {
   source                = "./modules/ec2"
   instance_profile_name = aws_iam_instance_profile.instance_profile.name
-  key_name              = aws_key_pair.deployer.key_name
   launch_template = {
     instance_profile_name                = aws_iam_instance_profile.instance_profile.name
     name                                 = var.worker_launch_template.name
-    key_name                             = aws_key_pair.deployer.key_name
+    key_name                             = aws_key_pair.this.key_name
     disable_api_stop                     = var.worker_launch_template.disable_api_stop
     disable_api_termination              = var.worker_launch_template.disable_api_termination
     instance_type                        = var.worker_launch_template.instance_type

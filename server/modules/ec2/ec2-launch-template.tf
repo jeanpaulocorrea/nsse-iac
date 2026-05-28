@@ -3,7 +3,7 @@ resource "aws_launch_template" "this" {
   disable_api_stop                     = var.launch_template.disable_api_stop
   disable_api_termination              = var.launch_template.disable_api_termination
   instance_type                        = var.launch_template.instance_type
-  key_name                             = var.key_name
+  key_name                             = var.launch_template.key_name
   image_id                             = var.launch_template.image_id
   instance_initiated_shutdown_behavior = var.launch_template.instance_initiated_shutdown_behavior
   vpc_security_group_ids               = var.launch_template.vpc_security_group_ids
