@@ -46,6 +46,8 @@ variable "ec2_resources" {
     instance_profile             = string
     control_plane_security_group = string
     worker_security_group        = string
+
+
   })
 
   default = {
@@ -55,7 +57,6 @@ variable "ec2_resources" {
     instance_profile             = "nsse-production-instance-profile"
     control_plane_security_group = "nsse-production-control-plane-security-group"
     worker_security_group        = "nsse-production-worker-security-group"
-
 
   }
 

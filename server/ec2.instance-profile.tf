@@ -20,7 +20,9 @@ resource "aws_iam_role" "instance_role" {
   name               = var.ec2_resources.instance_role
   path               = "/"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
-  managed_policy_arns = [
-    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  ]
+}
+
+resource "aws_iam_role_policy_attachment" "ssm_attachment" {
+  role       = aws_iam_role.instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
