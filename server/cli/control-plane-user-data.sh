@@ -1,6 +1,6 @@
 #!/bin/bash
 
-funtion installSystemManagerAgentOnEc2(){
+function installSystemManagerAgentOnEc2(){
     apt-get update -y
 
    if [ ! -d "/tmp/ssm" ]; then
@@ -11,6 +11,7 @@ funtion installSystemManagerAgentOnEc2(){
 
     if [ ! -f "amazon-ssm-agent.deb" ]; then
         wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb
+
     fi
 
 dpkg -i amazon-ssm-agent.deb
