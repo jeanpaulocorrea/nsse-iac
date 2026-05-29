@@ -186,5 +186,27 @@ variable "worker_auto_scaling_group" {
       max_healthy_percentage = 110
     }
   }
-
 }
+
+variable "debian_patch_baseline" {
+  type = object({
+    name                                 = string
+    description                          = string
+    approved_patches_enable_non_security = bool
+    operating_system                     = string
+
+  })
+
+  default = {
+    name                                 = "DebianProductionPatchBaseline"
+    description                          = "Custom Patch Baseline for Debian Production Servers"
+    approved_patches_enable_non_security = false
+    operating_system                     = "DEBIAN"
+
+  }
+}
+variable "patch_group" {
+  type    = string
+  default = "Production"
+}
+
