@@ -251,3 +251,35 @@ variable "patch_group" {
   default = "Production"
 }
 
+variable "debian_production_association" {
+  type = object({
+    name                = string
+    schedule_expression = string
+    association_name    = string
+    max_concurrency     = number
+    max_errors          = number
+    parameters = object({
+      Operation    = string
+      RebootOption = string
+    })
+    targets = object({
+      key = string
+    })
+  })
+
+  default = {
+    name                = "AWS-RunPatchBaseline"
+    schedule_expression = "cron(*/30 * * * ? *)"
+    association_name    = "DebianRunPatchBaselineAssociation"
+    max_concurrency     = 1
+    max_errors          = 0
+    parameters = {
+      Operation    = "Install"
+      RebootOption = "RebootIfNeeded"
+    }
+    targets = {
+      key = "tag:PatchGroup"
+    }
+  }
+
+}
