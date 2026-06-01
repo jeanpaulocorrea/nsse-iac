@@ -1,3 +1,9 @@
+locals {
+  asg_tags_dictionary = [for key, value in var.autoscaling_group.instance_tags : {
+    key = key
+  value = value }]
+}
+
 resource "aws_autoscaling_group" "this" {
   name                      = var.autoscaling_group.name
   max_size                  = var.autoscaling_group.max_size
@@ -17,22 +23,13 @@ resource "aws_autoscaling_group" "this" {
     max_healthy_percentage = var.autoscaling_group.instance_maintenance_policy.max_healthy_percentage
   }
 
-  tag {
-    key                 = "Project"
-    value               = var.tags.Project
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "Environment"
-    value               = var.tags.Environment
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = "Patch Group"
-    value               = "Production"
-    propagate_at_launch = true
+  dynamic "tag" {
+    for_each = local.asg_tags_dictionary
+    content {
+      key                 = tag.value.key
+      value               = tag.value.value
+      propagate_at_launch = true
+    }
   }
 }
 

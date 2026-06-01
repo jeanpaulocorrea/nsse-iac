@@ -43,6 +43,12 @@ variable "autoscaling_group" {
     desired_capacity          = number
     health_check_grace_period = number
     health_check_type         = string
+    instance_tags = object({
+      Environment = string
+      Project     = string
+      PatchGroup  = string
+      Name        = string
+    })
     instance_maintenance_policy = object({
       min_healthy_percentage = number
       max_healthy_percentage = number
