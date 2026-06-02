@@ -10,6 +10,11 @@ resource "aws_ssm_association" "debian_production" {
     RebootOption = var.debian_production_association.parameters.RebootOption
 
   }
+  output_location {
+    s3_bucket_name = aws_s3_bucket.logs.bucket
+    s3_key_prefix  = var.debian_production_association.output_location.key_prefix
+
+  }
   targets {
     key    = var.debian_production_association.targets.key
     values = [var.patch_group]

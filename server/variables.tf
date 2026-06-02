@@ -258,6 +258,9 @@ variable "debian_production_association" {
     association_name    = string
     max_concurrency     = number
     max_errors          = number
+    output_location = object({
+      key_prefix = string
+    })
     parameters = object({
       Operation    = string
       RebootOption = string
@@ -273,6 +276,9 @@ variable "debian_production_association" {
     association_name    = "DebianRunPatchBaselineAssociation"
     max_concurrency     = 1
     max_errors          = 0
+    output_location = {
+      key_prefix = "patching-logs"
+    }
     parameters = {
       Operation    = "Install"
       RebootOption = "RebootIfNeeded"
@@ -282,4 +288,16 @@ variable "debian_production_association" {
     }
   }
 
+}
+
+variable "logs_bucket" {
+  type = object({
+    bucket        = string
+    force_destroy = bool
+  })
+
+  default = {
+    bucket        = "nsse-production-logs-instance-prod"
+    force_destroy = true
+  }
 }
