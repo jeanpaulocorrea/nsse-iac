@@ -107,4 +107,23 @@ variable "dlqueues" {
 
     }
   ]
+
+}
+
+variable "order_confirmed_topic" {
+  type = object({
+    role_name                        = string
+    name                             = string
+    sqs_success_feedback_sample_rate = number
+    subscriptions                    = list(string)
+  })
+  default = {
+
+
+    role_name                        = "SnsTopicRole"
+    name                             = "OrderConfirmedTopic"
+    sqs_success_feedback_sample_rate = 100
+    subscriptions                    = ["InvoiceQueue", "ProductStockQueue"]
+  }
+
 }
