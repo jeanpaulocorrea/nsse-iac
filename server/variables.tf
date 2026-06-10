@@ -88,7 +88,7 @@ variable "control_plane_launch_template" {
     user_data                            = "./cli/control-plane-user-data.sh"
     ebs = {
       size                  = 20
-      delete_on_termination = false
+      delete_on_termination = true #deixar false para ambientes de produção
     }
 
 
@@ -122,7 +122,7 @@ variable "worker_launch_template" {
     user_data                            = "./cli/worker-user-data.sh"
     ebs = {
       size                  = 20
-      delete_on_termination = false
+      delete_on_termination = true #deixar false para ambientes de produção
     }
 
 

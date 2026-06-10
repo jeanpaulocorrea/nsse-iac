@@ -177,8 +177,9 @@ variable "rds_aurora_cluster" {
     manage_master_user_password  = bool
     preferred_maintenance_window = string,
     instances = list(object({
-      identifier     = string
-      instance_class = string
+      identifier        = string
+      instance_class    = string
+      availability_zone = string
     }))
     serverless_scaling_configuration = object({
       max_capacity = number
@@ -192,21 +193,23 @@ variable "rds_aurora_cluster" {
     engine_mode                  = "provisioned"
     database_name                = "NotSoSimpleEcommerce"
     master_username              = "nsseAdmin"
-    availability_zones           = ["us-east-1a", "us-east-1b", "us-east-1c"]
+    availability_zones           = ["us-east-1a", "us-east-1b"]
     final_snapshot_identifier    = "nsse-aurora-serverless-cluster-final-snapshot"
     db_subnet_group_name         = "nsse-production-db-subnet-group"
-    deletion_protection          = true
+    deletion_protection          = false #deixar em true para ambientes de produção
     storage_encrypted            = true
     manage_master_user_password  = true
     preferred_maintenance_window = "sun:05:00-sun:06:00",
     instances = [
       {
-        identifier     = "nsse-instance-us-east-1a"
-        instance_class = "db.serverless"
+        identifier        = "nsse-instance-us-east-1a"
+        instance_class    = "db.serverless"
+        availability_zone = "us-east-1a"
       },
       {
-        identifier     = "nsse-instance-us-east-1b"
-        instance_class = "db.serverless"
+        identifier        = "nsse-instance-us-east-1b"
+        instance_class    = "db.serverless"
+        availability_zone = "us-east-1b"
       }
     ]
     serverless_scaling_configuration = {

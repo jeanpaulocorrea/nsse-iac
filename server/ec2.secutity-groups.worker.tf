@@ -11,7 +11,7 @@ resource "aws_security_group" "worker" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(var.tags, { Name = var.ec2_resources.ssh_security_group })
+  tags = merge(var.tags, { Name = var.ec2_resources.worker_security_group })
 }
 
 

@@ -12,7 +12,7 @@ resource "aws_security_group" "control_plane" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(var.tags, { Name = var.ec2_resources.ssh_security_group })
+  tags = merge(var.tags, { Name = var.ec2_resources.control_plane_security_group })
 }
 
 
